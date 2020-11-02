@@ -3,7 +3,7 @@ from fastapi.exceptions import RequestValidationError
 from starlette.responses import JSONResponse
 
 from prescriptions.exception.base_exception import ExceptionBase
-from prescriptions.exception.exception import MalformedRequestError
+from prescriptions.exception.exceptions import MalformedRequestError
 from prescriptions.schemas.error_response_schema import ErrorDto, ErrorResponseDto
 
 

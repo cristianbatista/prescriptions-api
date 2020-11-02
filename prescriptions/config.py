@@ -8,13 +8,29 @@ class Settings(BaseSettings):
     ENV: str = "development"
 
     # Project
-    PROJECT_NAME: str = "Prescrições"
+    PROJECT_NAME: str = "Prescriptions API"
 
     # Database
-    # POSTGRE_URL: str = "postgresql+psycopg2://admin:pass@localhost:5432/test"
-    POSTGRE_URL: str = "postgresql+psycopg2://usr_prescription:secret@localhost:5432/prescription_db"
+    POSTGRE_URL: str = "postgresql+psycopg2://admin:pass@localhost:5432/test"
+
     # Security
     ALLOWED_HOSTS: List[str] = ["*"]
+
+    # Dependencies APIs
+    PATIENTS_API_URL: str = "http:url-api.com"
+    PATIENTS_API_TOKEN_AUTH: str = "Bearer token"
+    PATIENTS_API_MAX_RETRY: int = 2
+    PATIENTS_API_TIMEMOUT: float = 3
+
+    PHYSICIANS_API_URL: str = "http:url-api.com"
+    PHYSICIANS_API_TOKEN_AUTH: str = "Bearer token"
+    PHYSICIANS_API_MAX_RETRY: int = 2
+    PHYSICIANS_API_TIMEMOUT: float = 4
+
+    CLINICS_API_URL: str = "http:url-api.com"
+    CLINICS_API_TOKEN_AUTH: str = "Bearer token"
+    CLINICS_API_MAX_RETRY: int = 5
+    CLINICS_API_TIMEMOUT: float = 5
 
 
 settings = Settings()
