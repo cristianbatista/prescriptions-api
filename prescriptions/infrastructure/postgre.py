@@ -4,6 +4,15 @@ from sqlalchemy.orm import sessionmaker
 
 from prescriptions.config import settings
 
-engine = create_engine(settings.POSTGRE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+
+def create_engine_db():
+    engine = create_engine(settings.POSTGRE_URL)
+    return engine
+
+
+def create_session_local():
+    SessionLocal = sessionmaker(
+        autocommit=False, autoflush=False, bind=create_engine_db()
+    )
+    db = SessionLocal()
+    return db

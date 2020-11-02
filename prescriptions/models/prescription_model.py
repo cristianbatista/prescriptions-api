@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import sessionmaker
+from prescriptions.infrastructure.postgre import declarative_base
 
-from prescriptions.infrastructure.postgre import Base, engine
+Base = declarative_base()
 
 
 class PrescriptionModel(Base):
@@ -12,8 +12,3 @@ class PrescriptionModel(Base):
     physician_id = Column(Integer)
     patient_id = Column(Integer)
     text = Column(String(255))
-
-
-Session = sessionmaker(engine)
-session = Session()
-Base.metadata.create_all(engine)
