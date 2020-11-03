@@ -1,7 +1,5 @@
-import asyncio
 from unittest.mock import Mock
 
-import asynctest
 import pytest
 from starlette.testclient import TestClient
 
@@ -19,7 +17,7 @@ def mock_prescription_schema():
         clinic=ClinicSchema(id=1),
         physician=PhysicianSchema(id=4),
         patient=PatientSchema(id=56),
-        text="Dipirona ao dormir - 30 gotas quando sentir dor"
+        text="Dipirona ao dormir - 30 gotas quando sentir dor",
     )
 
 
@@ -31,5 +29,7 @@ def client():
 
 def mock_prescripton_service_success():
     mock_prescripton_service = Mock(PrescriptionService())
-    mock_prescripton_service.create_prescription.return_value = mock_prescription_schema()
+    mock_prescripton_service.create_prescription.return_value = (
+        mock_prescription_schema()
+    )
     return mock_prescripton_service

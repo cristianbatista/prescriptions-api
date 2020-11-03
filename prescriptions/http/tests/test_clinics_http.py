@@ -7,7 +7,6 @@ from prescriptions.http.clinics_http import ClinicsHttp
 
 
 class TestClinicsHttp:
-
     @pytest.mark.asyncio
     @patch("aiohttp.ClientSession.get")
     async def test_get_clinics_by_id_success(
@@ -22,7 +21,6 @@ class TestClinicsHttp:
         response = await clinics_http.get(1)
         assert isinstance(response, dict)
         assert response["name"] == "Clinica Saúde"
-
 
     @pytest.mark.asyncio
     @patch("aiohttp.ClientSession.get")
@@ -40,12 +38,9 @@ class TestClinicsHttp:
 
         assert response is None
 
-
     @pytest.mark.asyncio
     @patch("aiohttp.ClientSession.get")
-    async def test_get_patient_by_id_error(
-        self, response_aiohttp_get_clinics_success
-    ):
+    async def test_get_patient_by_id_error(self, response_aiohttp_get_clinics_success):
         response_aiohttp_get_clinics_success.return_value.__aenter__.return_value.json = CoroutineMock(
             side_effect=ClinicsHttpError
         )

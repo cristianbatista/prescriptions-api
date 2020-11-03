@@ -1,11 +1,11 @@
 import aiohttp
 from fastapi.logger import logger
+
 from prescriptions.config import settings
-from prescriptions.exception.exceptions import PatientsHttpError, PatientNotFound
+from prescriptions.exception.exceptions import PatientNotFound, PatientsHttpError
 
 
 class PatientsHttp:
-
     async def get(self, id: int) -> dict:
         retry_quantity = 0
         retry = True
@@ -18,7 +18,7 @@ class PatientsHttp:
                     url = f"{settings.PATIENTS_API_URL}/patients/{id}"
                     headers = {
                         "Autorization": settings.PATIENTS_API_TOKEN_AUTH,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     }
                     async with session.get(
                         url, headers=headers, timeout=timeout

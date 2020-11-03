@@ -2,13 +2,12 @@ import json
 
 import aiohttp
 from fastapi.logger import logger
+
 from prescriptions.config import settings
-from prescriptions.exception.exceptions import PhysiciansHttpError, PhysicianNotFound, MetricsHttpError
-from prescriptions.schemas.create_metrics_schema import CreateMetricsSchema
+from prescriptions.exception.exceptions import MetricsHttpError
 
 
 class MetricsHttp:
-
     async def post(self, body: dict) -> dict:
         retry_quantity = 0
         retry = True
@@ -21,7 +20,7 @@ class MetricsHttp:
                     url = f"{settings.METRICS_API_URL}/metrics"
                     headers = {
                         "Autorization": settings.METRICS_API_TOKEN_AUTH,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     }
                     async with session.post(
                         url, data=json.dumps(body), headers=headers, timeout=timeout
@@ -37,7 +36,9 @@ class MetricsHttp:
                 return data
 
             if response and response.status != 201:
-                logger.error(f"[MetricsHttp.post] Create metrics failed - status: {response.status}")
+                logger.error(
+                    f"[MetricsHttp.post] Create metrics failed - status: {response.status}"
+                )
 
             if retry_quantity > settings.METRICS_API_MAX_RETRY:
                 retry = False

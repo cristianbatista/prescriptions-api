@@ -1,14 +1,7 @@
-import asyncio
+from unittest.mock import patch
 
-import asynctest as asynctest
-from unittest.mock import patch, Mock
 import pytest
 
-from prescriptions.http.patients_http import PatientsHttp
-from prescriptions.models.prescription_model import PrescriptionModel
-from prescriptions.repository.postgre_prescription_repository import (
-    PostgrePrescriptionRepository,
-)
 from prescriptions.schemas.clinic_schema import ClinicSchema
 from prescriptions.schemas.create_prescription_schema import CreatePrescriptionSchema
 from prescriptions.schemas.patient_schema import PatientSchema
@@ -27,7 +20,7 @@ class TestPrescriptionService:
         mock_physicians_http_get_success,
         mock_clinics_http_get_success,
         mock_metrics_http_post_success,
-        mock_prescription_repo_create
+        mock_prescription_repo_create,
     ):
 
         dto = CreatePrescriptionSchema(
@@ -43,7 +36,7 @@ class TestPrescriptionService:
             mock_patients_http_get_success,
             mock_physicians_http_get_success,
             mock_clinics_http_get_success,
-            mock_metrics_http_post_success
+            mock_metrics_http_post_success,
         )
 
         result = await service.create_prescription(dto)
@@ -54,14 +47,13 @@ class TestPrescriptionService:
     @pytest.mark.asyncio
     @patch("prescriptions.infrastructure.postgre.create_session_local")
     async def test_create_prescription_clinic_id_none_success(
-            self,
-            mock_create_session_local,
-            mock_patients_http_get_success,
-            mock_physicians_http_get_success,
-            mock_clinics_http_get_not_found,
-            mock_metrics_http_post_success,
-            mock_prescription_repo_create
-
+        self,
+        mock_create_session_local,
+        mock_patients_http_get_success,
+        mock_physicians_http_get_success,
+        mock_clinics_http_get_not_found,
+        mock_metrics_http_post_success,
+        mock_prescription_repo_create,
     ):
         dto = CreatePrescriptionSchema(
             clinic=ClinicSchema(id=456),
@@ -76,13 +68,12 @@ class TestPrescriptionService:
             mock_patients_http_get_success,
             mock_physicians_http_get_success,
             mock_clinics_http_get_not_found,
-            mock_metrics_http_post_success
+            mock_metrics_http_post_success,
         )
         result = await service.create_prescription(dto)
 
         assert isinstance(result, PrescriptionSchema)
         assert result.id == 100
-
 
     @pytest.mark.asyncio
     @patch("prescriptions.infrastructure.postgre.create_session_local")
@@ -93,7 +84,7 @@ class TestPrescriptionService:
         mock_physicians_http_get_success,
         mock_clinics_http_get_success,
         mock_metrics_http_post_success,
-        mock_prescription_repo_create_exception
+        mock_prescription_repo_create_exception,
     ):
 
         with pytest.raises(RuntimeError) as ex:
@@ -110,7 +101,7 @@ class TestPrescriptionService:
                 mock_patients_http_get_success,
                 mock_physicians_http_get_success,
                 mock_clinics_http_get_success,
-                mock_metrics_http_post_success
+                mock_metrics_http_post_success,
             )
             await service.create_prescription(dto)
 

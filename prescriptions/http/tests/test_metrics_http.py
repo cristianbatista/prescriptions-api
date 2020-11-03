@@ -7,10 +7,11 @@ from prescriptions.http.metrics_http import MetricsHttp
 
 
 class TestMetricsHttp:
-
     @pytest.mark.asyncio
     @patch("aiohttp.ClientSession.post")
-    async def test_post_metrics_success(self, mock_aiohttp_post, mock_response_metrics_http_post):
+    async def test_post_metrics_success(
+        self, mock_aiohttp_post, mock_response_metrics_http_post
+    ):
         mock_aiohttp_post.return_value.__aenter__.return_value.json = CoroutineMock(
             return_value=mock_response_metrics_http_post
         )
@@ -25,7 +26,7 @@ class TestMetricsHttp:
             "patient_id": 1,
             "patient_name": "Rodrigo",
             "patient_email": "rodrigo@gmail.com",
-            "patient_phone": "(16)998765625"
+            "patient_phone": "(16)998765625",
         }
         metrics_http = MetricsHttp()
         response = await metrics_http.post(body)
@@ -36,7 +37,9 @@ class TestMetricsHttp:
 
     @pytest.mark.asyncio
     @patch("aiohttp.ClientSession.post")
-    async def test_post_metrics_excpetion(self, mock_aiohttp_post, mock_response_metrics_http_post):
+    async def test_post_metrics_excpetion(
+        self, mock_aiohttp_post, mock_response_metrics_http_post
+    ):
         mock_aiohttp_post.return_value.__aenter__.return_value.json = CoroutineMock(
             side_effect=MetricsHttpError
         )
@@ -50,7 +53,7 @@ class TestMetricsHttp:
             "patient_id": 1,
             "patient_name": "Rodrigo",
             "patient_email": "rodrigo@gmail.com",
-            "patient_phone": "(16)998765625"
+            "patient_phone": "(16)998765625",
         }
 
         with pytest.raises(MetricsHttpError) as ex:
@@ -58,4 +61,3 @@ class TestMetricsHttp:
             await metrics_http.post(body)
 
         assert ex.typename == "MetricsHttpError"
-

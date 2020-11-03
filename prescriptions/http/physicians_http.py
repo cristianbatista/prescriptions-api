@@ -1,11 +1,11 @@
 import aiohttp
 from fastapi.logger import logger
+
 from prescriptions.config import settings
-from prescriptions.exception.exceptions import PhysiciansHttpError, PhysicianNotFound
+from prescriptions.exception.exceptions import PhysicianNotFound, PhysiciansHttpError
 
 
 class PhysiciansHttp:
-
     async def get(self, id: int) -> dict:
         retry_quantity = 0
         retry = True
@@ -18,7 +18,7 @@ class PhysiciansHttp:
                     url = f"{settings.PHYSICIANS_API_URL}/physicians/{id}"
                     headers = {
                         "Autorization": settings.PHYSICIANS_API_TOKEN_AUTH,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     }
                     async with session.get(
                         url, headers=headers, timeout=timeout
@@ -34,7 +34,9 @@ class PhysiciansHttp:
                 return data
 
             if response and response.status == 404:
-                logger.error(f"[PhysiciansHttp.get] {PhysicianNotFound().message}, id: {id}")
+                logger.error(
+                    f"[PhysiciansHttp.get] {PhysicianNotFound().message}, id: {id}"
+                )
                 raise PhysicianNotFound()
 
             if retry_quantity > settings.PHYSICIANS_API_MAX_RETRY:

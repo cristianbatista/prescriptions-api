@@ -1,4 +1,3 @@
-from fastapi import logger
 from prescriptions.http.clinics_http import ClinicsHttp
 from prescriptions.http.metrics_http import MetricsHttp
 from prescriptions.http.patients_http import PatientsHttp
@@ -17,13 +16,13 @@ from prescriptions.schemas.prescription_schema import PrescriptionSchema
 
 class PrescriptionService:
     def __init__(
-            self,
-            db=None,
-            prescription_repository=None,
-            patients_http=None,
-            physicians_http=None,
-            clinics_http=None,
-            metrics_http=None
+        self,
+        db=None,
+        prescription_repository=None,
+        patients_http=None,
+        physicians_http=None,
+        clinics_http=None,
+        metrics_http=None,
     ):
         self.db = create_session_local() if not db else db
         self.prescripton_repository = (
@@ -32,7 +31,9 @@ class PrescriptionService:
             else prescription_repository
         )
         self.patients_http = PatientsHttp() if not patients_http else patients_http
-        self.physicians_http = PhysiciansHttp() if not physicians_http else physicians_http
+        self.physicians_http = (
+            PhysiciansHttp() if not physicians_http else physicians_http
+        )
         self.clinics_http = ClinicsHttp() if not clinics_http else clinics_http
         self.metrics_http = MetricsHttp() if not metrics_http else metrics_http
 
@@ -59,7 +60,7 @@ class PrescriptionService:
                 patient_id=patient["id"],
                 patient_name=patient["name"],
                 patient_email=patient["email"],
-                patient_phone=patient["phone"]
+                patient_phone=patient["phone"],
             )
             await self.metrics_http.post(create_metrics_schema.dict())
 

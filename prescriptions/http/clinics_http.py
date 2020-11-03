@@ -1,13 +1,13 @@
 from typing import Optional
-from fastapi.logger import  logger
+
 import aiohttp
+from fastapi.logger import logger
 
 from prescriptions.config import settings
-from prescriptions.exception.exceptions import PhysiciansHttpError, PhysicianNotFound, ClinicsHttpError
+from prescriptions.exception.exceptions import ClinicsHttpError
 
 
 class ClinicsHttp:
-
     async def get(self, id: int) -> Optional[dict]:
         retry_quantity = 0
         retry = True
@@ -20,7 +20,7 @@ class ClinicsHttp:
                     url = f"{settings.PHYSICIANS_API_URL}/clinics/{id}"
                     headers = {
                         "Autorization": settings.PHYSICIANS_API_TOKEN_AUTH,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     }
                     async with session.get(
                         url, headers=headers, timeout=timeout

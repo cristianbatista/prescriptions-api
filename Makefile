@@ -6,7 +6,7 @@ export PYTHONPATH=$(CURDIR)
 
 format:
 	@black prescriptions
-	@isort --recursive prescriptionso
+	@isort --recursive prescriptions
 
 lint:
 	@flake8 prescriptions

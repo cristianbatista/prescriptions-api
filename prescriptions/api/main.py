@@ -1,5 +1,3 @@
-import logging
-
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
@@ -7,7 +5,7 @@ from prescriptions.api.endpoints.health import router as health_router
 from prescriptions.api.endpoints.prescriptions import router as prescriptions_router
 from prescriptions.api.error_handling import init_error_handling
 from prescriptions.config import settings
-from prescriptions.infrastructure.postgre import create_session_local, create_engine_db
+from prescriptions.infrastructure.postgre import create_engine_db, create_session_local
 from prescriptions.models.prescription_model import Base
 
 

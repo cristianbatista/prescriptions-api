@@ -7,7 +7,6 @@ from prescriptions.http.physicians_http import PhysiciansHttp
 
 
 class TestPhysiciansHttp:
-
     @pytest.mark.asyncio
     @patch("aiohttp.ClientSession.get")
     async def test_get_physicians_by_id_success(
@@ -40,7 +39,6 @@ class TestPhysiciansHttp:
             await physicians_http.get(1)
 
         assert ex.typename == "PhysicianNotFound"
-
 
     @pytest.mark.asyncio
     @patch("aiohttp.ClientSession.get")

@@ -13,19 +13,12 @@ def response_aiohttp_get_patient_success():
 
 @pytest.fixture()
 def response_aiohttp_get_physicians_success():
-    return {
-        "id": "3",
-        "name": "Dr. Jose Silva",
-        "crm": "SPE12345"
-    }
+    return {"id": "3", "name": "Dr. Jose Silva", "crm": "SPE12345"}
 
 
 @pytest.fixture()
 def response_aiohttp_get_clinics_success():
-    return {
-        "id": "4",
-        "name": "Clinica Saúde"
-    }
+    return {"id": "4", "name": "Clinica Saúde"}
 
 
 @pytest.fixture()
@@ -40,5 +33,5 @@ def mock_response_metrics_http_post():
         "patient_id": 1,
         "patient_email": "rodrigo@gmail.com",
         "patient_phone": "(16)998765625",
-        "patient_name": "Rodrigo"
+        "patient_name": "Rodrigo",
     }

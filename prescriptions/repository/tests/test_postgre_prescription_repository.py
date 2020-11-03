@@ -1,4 +1,5 @@
 from unittest.mock import patch
+
 import pytest
 
 from prescriptions.models.prescription_model import PrescriptionModel
@@ -9,7 +10,6 @@ from prescriptions.schemas.clinic_schema import ClinicSchema
 from prescriptions.schemas.create_prescription_schema import CreatePrescriptionSchema
 from prescriptions.schemas.patient_schema import PatientSchema
 from prescriptions.schemas.physician_schema import PhysicianSchema
-
 
 add_record_return = PrescriptionModel(
     id=100, clinic_id=2, physician_id=15, patient_id=34, text="Paracetamol 2x ao dia"

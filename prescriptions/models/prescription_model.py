@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String
+
 from prescriptions.infrastructure.postgre import declarative_base
 
 Base = declarative_base()
