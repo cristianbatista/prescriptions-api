@@ -22,7 +22,5 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: pip install virtualenv && make install
-    - name: Set virtual environment
-      run:  source venv/bin/activate
     - name: Test and Coverage
-      run: make coverage
+      run: source venv/bin/activate && make coverage
