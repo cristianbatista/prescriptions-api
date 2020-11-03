@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from starlette import status
 
 from prescriptions.schemas.create_prescription_schema import CreatePrescriptionSchema
@@ -13,8 +13,10 @@ router = APIRouter()
 
 @router.post("", response_model=dict, status_code=status.HTTP_201_CREATED)
 async def create_prescription(
-    payload: CreatePrescriptionSchema, service: PrescriptionService = Depends()
+    payload: CreatePrescriptionSchema,
 ) -> ResponseCreatePrescriptionSchema:
+
+    service = PrescriptionService()
     prescription_schema = await service.create_prescription(payload)
 
     return ResponseCreatePrescriptionSchema(
