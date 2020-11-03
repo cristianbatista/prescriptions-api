@@ -30,7 +30,12 @@ class Settings(BaseSettings):
     CLINICS_API_URL: str = "http:url-api.com"
     CLINICS_API_TOKEN_AUTH: str = "Bearer token"
     CLINICS_API_MAX_RETRY: int = 5
-    CLINICS_API_TIMEMOUT: float = 5
+    CLINICS_API_TIMEMOUT: float = 6
+
+    METRICS_API_URL: str = "http:url-api.com"
+    METRICS_API_TOKEN_AUTH: str = "Bearer token"
+    METRICS_API_MAX_RETRY: int = 5
+    METRICS_API_TIMEMOUT: float = 5
 
 
 settings = Settings()
