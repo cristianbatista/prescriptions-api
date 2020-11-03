@@ -17,17 +17,17 @@ lint:
 # Dependencies Commands
 ####################################
 packages:
-	@printf "Instalando bibliotecas... "
+	@printf "Installing libraries... "
 	@venv/bin/pip install -q --no-cache-dir -r requirements.txt
 	@echo "OK"
 
 env-create: env-destroy
-	@printf "Criando ambiente virtual... "
+	@printf "Creating virtual environment... "
 	@virtualenv -q venv -p python3.8
 	@echo "OK"
 
 env-destroy:
-	@printf "Destruindo ambiente virtual... "
+	@printf "Destroing virtual environment... "
 	@rm -rfd venv
 	@echo "OK"
 
@@ -41,17 +41,16 @@ infra-up:
 # App (Run, Debug and Test) Commands
 ####################################
 test:
-	@py.test -vv -rxs
+	@py.test -vv -rxs --capture=tee-sys
 
 coverage:
-	@py.test -xs --cov kilimanjaro --cov-report xml --cov-report term-missing --cov-config .coveragerc
+	@py.test -xs --cov prescriptions --cov-report xml --cov-report term-missing --cov-config .coveragerc
 
-# Query (API)
 debug-api:
 	@uvicorn prescriptions.api.main:app --workers 3 --reload
 
 run-api:
-	@gunicorn kprescriptions.api.main:app -w 3 -k uvicorn.workers.UvicornWorker
+	@gunicorn prescriptions.api.main:app -w 3 -k uvicorn.workers.UvicornWorker
 
 docker-up:
 	@docker-compose --log-level ERROR up -d
