@@ -44,3 +44,8 @@ class PhysiciansHttpError(ExceptionBase):
 class ClinicsHttpError(ExceptionBase):
     def __init__(self):
         super().__init__(code="09", message="An error ocurred request clinics api")
+
+
+class MetricsHttpError(ExceptionBase):
+    def __init__(self):
+        super().__init__(code="10", message="An error ocurred request metrics api")
