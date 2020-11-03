@@ -57,3 +57,19 @@ Application responsible for prescriptions registrations
 7. Run coverage code
 
         make coverage       
+
+
+### continuous integration ###
+
+1. The project use github workflows for build and unit tests
+        
+        # .github/workflows/python-app.yml
+        https://github.com/cristianbatista/prescriptions-api/actions
+        
+
+### continuous deployment ###
+
+1. The API is published on the heroku platform. Every commit on the main branch is deployed        
+
+        # link api heroku plataform
+        https://prescriptions-api-challenge.herokuapp.com/docs
