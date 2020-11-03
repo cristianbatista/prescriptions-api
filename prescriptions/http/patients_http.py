@@ -16,7 +16,10 @@ class PatientsHttp:
                 timeout = aiohttp.ClientTimeout(total=settings.PATIENTS_API_TIMEMOUT)
                 async with aiohttp.ClientSession() as session:
                     url = f"{settings.PATIENTS_API_URL}/patients/{id}"
-                    headers = {"Autorization": settings.PATIENTS_API_TOKEN_AUTH}
+                    headers = {
+                        "Autorization": settings.PATIENTS_API_TOKEN_AUTH,
+                        "Content-Type": "application/json"
+                    }
                     async with session.get(
                         url, headers=headers, timeout=timeout
                     ) as response:

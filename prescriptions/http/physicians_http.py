@@ -16,7 +16,10 @@ class PhysiciansHttp:
                 timeout = aiohttp.ClientTimeout(total=settings.PHYSICIANS_API_TIMEMOUT)
                 async with aiohttp.ClientSession() as session:
                     url = f"{settings.PHYSICIANS_API_URL}/physicians/{id}"
-                    headers = {"Autorization": settings.PHYSICIANS_API_TOKEN_AUTH}
+                    headers = {
+                        "Autorization": settings.PHYSICIANS_API_TOKEN_AUTH,
+                        "Content-Type": "application/json"
+                    }
                     async with session.get(
                         url, headers=headers, timeout=timeout
                     ) as response:
@@ -31,9 +34,8 @@ class PhysiciansHttp:
                 return data
 
             if response and response.status == 404:
-                not_found_ex = PhysicianNotFound()
-                logger.error(f"[PhysiciansHttp.get] {not_found_ex.message}, id: {id}")
-                raise not_found_ex
+                logger.error(f"[PhysiciansHttp.get] {PhysicianNotFound().message}, id: {id}")
+                raise PhysicianNotFound()
 
             if retry_quantity > settings.PHYSICIANS_API_MAX_RETRY:
                 retry = False
